@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orion Generator Final</title><style>
+body{
+  margin:0;
+  background:#0f172a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial, sans-serif;
+  color:white;
+}
+
+.box{
+  background:#1e293b;
+  padding:35px;
+  border-radius:18px;
+  width:90%;
+  max-width:500px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+  text-align:center;
+  outline:none;
+}
+
+button{
+  margin-top:15px;
+  padding:10px 20px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  background:#3b82f6;
+  color:white;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:30px;
+  font-size:34px;
+  word-break:break-word;
+}
+
+.copyBtn{
+  background:#22c55e;
+}
+</style></head>
+<body><div class="box">
+  <h2>Orion Name Generator</h2>  <input type="text" id="nameInput" placeholder="Masukkan Nama (contoh: Yudz)" />
+  <button onclick="generateName()">Generate</button>  <div class="result" id="result"></div>
+  <button class="copyBtn" onclick="copyText()">Copy</button>
+</div><script>
+// Mathematical Sans Bold Italic (SAMA seperti Orion)
+function toOrionStyle(text){
+  return text.split("").map(char => {
+    const code = char.charCodeAt(0);
+
+    // A-Z
+    if(code >= 65 && code <= 90){
+      return String.fromCodePoint(0x1D63C + (code - 65));
+    }
+
+    // a-z
+    if(code >= 97 && code <= 122){
+      return String.fromCodePoint(0x1D656 + (code - 97));
+    }
+
+    return char;
+  }).join("");
+}
+
+function generateName(){
+  const name = document.getElementById("nameInput").value.trim();
+  if(!name) return;
+
+  const styledName = toOrionStyle(name);
+  const finalText = styledName + "`𝙊𝙧𝙞𝙤͠͠𝙣";
+
+  document.getElementById("result").innerText = finalText;
+}
+
+function copyText(){
+  const text = document.getElementById("result").innerText;
+  if(!text) return;
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+
+  alert("Copied ✅");
+}
+</script></body>
+</html>
